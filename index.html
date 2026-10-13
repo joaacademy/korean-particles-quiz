@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Korean Particles Post-Workshop Quiz | Joa Academy</title>
+<style>
+  :root{
+    --blue:#00416a;
+    --cream:#fff8ed;
+    --yellow:#ffde59;
+    --mid:#508aba;
+    --ink:#17212b;
+    --muted:#65717d;
+    --green:#1f7a4d;
+    --green-bg:#eef8f2;
+    --red:#a03a3a;
+    --red-bg:#fff1f1;
+    --line:#dbe3ea;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background:linear-gradient(180deg,var(--cream),#fff 38%);
+    color:var(--ink);
+    line-height:1.55;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:28px 18px 56px}
+  .brand{font-weight:800;color:var(--blue);letter-spacing:.02em;margin-bottom:10px}
+  .hero{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:28px;
+    box-shadow:0 10px 30px rgba(0,65,106,.08);
+  }
+  h1{margin:0 0 10px;color:var(--blue);font-size:clamp(30px,5vw,46px);line-height:1.08}
+  .sub{font-size:18px;color:var(--muted);margin:0 0 20px}
+  .note{
+    background:#f7fbff;
+    border-left:5px solid var(--mid);
+    padding:14px 16px;
+    border-radius:10px;
+    margin:18px 0 0;
+  }
+  .topbar{margin-top:22px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  .progress-shell{height:10px;background:#e8eef3;border-radius:99px;overflow:hidden;flex:1;min-width:220px}
+  .progress{height:100%;width:0;background:var(--blue);transition:width .25s ease}
+  .counter{font-weight:700;color:var(--blue);white-space:nowrap}
+  .quiz-card{
+    margin-top:18px;background:var(--white);border:1px solid var(--line);border-radius:22px;padding:26px;
+    box-shadow:0 8px 26px rgba(0,65,106,.06);
+  }
+  .qtag{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);margin-bottom:8px}
+  .qtext{font-size:22px;font-weight:750;margin:0 0 8px;white-space:pre-line}
+  .context{color:var(--muted);margin-bottom:18px;white-space:pre-line}
+  .options{display:grid;gap:10px;margin-top:16px}
+  .option{
+    width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px 16px;
+    font-size:17px;cursor:pointer;transition:.15s ease;color:var(--ink);
+  }
+  .option:hover{border-color:var(--mid);transform:translateY(-1px)}
+  .option.selected{border-color:var(--blue);background:#f5f9fc}
+  .option.correct{border-color:var(--green);background:var(--green-bg)}
+  .option.wrong{border-color:var(--red);background:var(--red-bg)}
+  .option:disabled{cursor:default;transform:none}
+  .feedback{display:none;margin-top:18px;padding:16px;border-radius:14px}
+  .feedback.show{display:block}
+  .feedback.good{background:var(--green-bg);border:1px solid #b9dfc8}
+  .feedback.bad{background:var(--red-bg);border:1px solid #efc2c2}
+  .feedback strong{display:block;margin-bottom:5px}
+  .korean{font-size:19px;font-weight:700;color:var(--blue)}
+  .actions{display:flex;gap:10px;justify-content:space-between;margin-top:20px;flex-wrap:wrap}
+  button.nav{
+    border:0;border-radius:12px;padding:12px 18px;font-weight:800;font-size:15px;cursor:pointer;
+  }
+  .prev{background:#edf2f6;color:var(--blue)}
+  .next{background:var(--blue);color:#fff;margin-left:auto}
+  .next:disabled{opacity:.45;cursor:not-allowed}
+  .result{display:none;margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 8px 26px rgba(0,65,106,.06)}
+  .result.show{display:block}
+  .score{font-size:48px;font-weight:900;color:var(--blue);margin:0}
+  .result h2{margin:4px 0 8px;color:var(--blue)}
+  .result p{font-size:17px}
+  .restart{background:var(--yellow)!important;color:#392f00!important}
+  .small{font-size:14px;color:var(--muted)}
+  .flow-box{margin-top:24px;padding:22px;background:#f7fbff;border:1px solid #cbddea;border-radius:16px}
+  .flow-box h3{margin:0 0 8px;color:var(--blue);font-size:22px}
+  .flow-box p{margin:8px 0}
+  .flow-tagline{font-style:italic;color:var(--muted)}
+  .flow-link{display:inline-block;margin-top:12px;background:var(--blue);color:#fff;text-decoration:none;font-weight:800;padding:12px 18px;border-radius:12px}
+  .flow-link:hover{opacity:.92}
+  .footer{text-align:center;margin-top:28px;color:var(--muted);font-size:13px;max-width:760px;margin-left:auto;margin-right:auto}
+  @media (max-width:560px){.hero,.quiz-card,.result{padding:20px}.qtext{font-size:20px}.option{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">JOA ACADEMY</div>
+  <section class="hero" id="intro">
+    <h1>Korean Particles: Post-Workshop Check</h1>
+    <p class="sub">30 fresh situations to see how naturally 은/는, 이/가, 을/를, 에, and 에서 are coming to you now.</p>
+    <div class="note"><strong>How to take it:</strong> Don’t overthink. Aim for about 5 seconds per question. Choose the answer that fits the situation naturally. These are new examples—but they use the same patterns you practised in the workshop.</div>
+  </section>
+
+  <div class="topbar">
+    <div class="progress-shell"><div class="progress" id="progress"></div></div>
+    <div class="counter" id="counter">1 / 30</div>
+  </div>
+
+  <section class="quiz-card" id="quizCard">
+    <div class="qtag" id="qtag"></div>
+    <div class="qtext" id="qtext"></div>
+    <div class="context" id="context"></div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+    <div class="actions">
+      <button class="nav prev" id="prevBtn">← Previous</button>
+      <button class="nav next" id="nextBtn" disabled>Next →</button>
+    </div>
+  </section>
+
+  <section class="result" id="result"></section>
+  <div class="footer">© 2026 Joa Academy. All rights reserved. This quiz and its contents are for personal educational use only and may not be reproduced or distributed without permission.</div>
+</div>
+
+<script>
+const questions = [
+  {
+    tag:"Identify who",
+    text:"A: 누가 문을 열었어요?\nB: 지현___ 문을 열었어요.",
+    context:"Who opened the door? — Jihyeon did.",
+    options:["지현은", "지현이", "지현을"], answer:1,
+    explain:"The question is 누가? We are identifying who did the action, so 이/가 fits: 지현이 문을 열었어요."
+  },
+  {
+    tag:"Action location",
+    text:"언니는 병원___ 일해요.",
+    context:"My older sister works at a hospital.",
+    options:["병원에", "병원에서", "병원을"], answer:1,
+    explain:"일하다 is an action happening at the hospital, so use 에서: 병원에서 일해요."
+  },
+  {
+    tag:"Destination",
+    text:"점심을 먹고 은행___ 가요.",
+    context:"After lunch, I go to the bank.",
+    options:["은행에", "은행에서", "은행을"], answer:0,
+    explain:"The bank is the destination of 가요, so use 에: 은행에 가요."
+  },
+  {
+    tag:"Object chunk",
+    text:"저는 자기 전에 이 책___ 읽어요.",
+    context:"I read this book before bed.",
+    options:["이 책이", "이 책은", "이 책을"], answer:2,
+    explain:"The book is what you read. 읽다 takes the object with 을/를: 이 책을 읽어요."
+  },
+  {
+    tag:"Contrast",
+    text:"저는 아침에 운동해요. 동생___ 저녁에 운동해요.",
+    context:"I exercise in the morning. My younger sibling exercises in the evening.",
+    options:["동생은", "동생이", "동생을"], answer:0,
+    explain:"You are contrasting two people and their routines: 저는… 동생은…."
+  },
+  {
+    tag:"Identify who",
+    text:"A: 누가 창문을 닫았어요?\nB: 선생님___ 닫았어요.",
+    context:"Who closed the window? — The teacher did.",
+    options:["선생님은", "선생님이", "선생님을"], answer:1,
+    explain:"The answer identifies who closed it, so 이/가 fits: 선생님이 닫았어요."
+  },
+  {
+    tag:"Action location",
+    text:"우리는 식당___ 점심을 먹어요.",
+    context:"We eat lunch at a restaurant.",
+    options:["식당에", "식당에서", "식당을"], answer:1,
+    explain:"Eating is happening at the restaurant, so use 에서: 식당에서 점심을 먹어요."
+  },
+  {
+    tag:"Existence location",
+    text:"아빠는 지금 회사___ 있어요.",
+    context:"Dad is at the office now.",
+    options:["회사에", "회사에서", "회사를"], answer:0,
+    explain:"있다 uses 에 for the place where someone/something exists: 회사에 있어요."
+  },
+  {
+    tag:"Object chunk",
+    text:"주말마다 친구___ 만나요.",
+    context:"I meet my friend every weekend.",
+    options:["친구가", "친구는", "친구를"], answer:2,
+    explain:"친구 is the person you meet. 만나다 takes 을/를: 친구를 만나요."
+  },
+  {
+    tag:"Identify who",
+    text:"A: 누가 사진을 찍었어요?\nB: 유진___ 사진을 찍었어요.",
+    context:"Who took the photo? — Yujin did.",
+    options:["유진은", "유진이", "유진을"], answer:1,
+    explain:"We are identifying who took the photo: 유진이 사진을 찍었어요."
+  },
+  {
+    tag:"Action location",
+    text:"오늘 도서관___ 책을 읽어요.",
+    context:"Today I read a book at the library.",
+    options:["도서관에", "도서관에서", "도서관을"], answer:1,
+    explain:"읽다 is an action happening at the library, so use 에서."
+  },
+  {
+    tag:"Destination",
+    text:"퇴근 후에 바로 집___ 가요.",
+    context:"After work, I go straight home.",
+    options:["집에", "집에서", "집을"], answer:0,
+    explain:"집 is the destination of 가요, so use 에: 집에 가요."
+  },
+  {
+    tag:"Contrast",
+    text:"민지는 사과를 먹어요. 준호___ 바나나를 먹어요.",
+    context:"Minji eats an apple. Junho eats a banana.",
+    options:["준호는", "준호가", "준호를"], answer:0,
+    explain:"The two people are being set side by side in contrast: 민지는… 준호는…."
+  },
+  {
+    tag:"좋아하다 pattern",
+    text:"A: 누가 이 노래를 좋아해요?\nB: 제 동생___ 이 노래를 좋아해요.",
+    context:"Who likes this song? — My younger sibling does.",
+    options:["제 동생은", "제 동생이", "제 동생을"], answer:1,
+    explain:"누가? asks us to identify who, so use 이/가: 제 동생이…."
+  },
+  {
+    tag:"Object chunk",
+    text:"저는 출근할 때 음악___ 들어요.",
+    context:"I listen to music on the way to work.",
+    options:["음악이", "음악은", "음악을"], answer:2,
+    explain:"음악 is what you listen to. 듣다 takes 을/를 here: 음악을 들어요."
+  },
+  {
+    tag:"Existence location",
+    text:"아이들은 지금 교실___ 있어요.",
+    context:"The children are in the classroom now.",
+    options:["교실에", "교실에서", "교실을"], answer:0,
+    explain:"있다 uses 에 for location: 교실에 있어요."
+  },
+  {
+    tag:"Action location",
+    text:"아이들은 교실___ 그림을 그려요.",
+    context:"The children draw pictures in the classroom.",
+    options:["교실에", "교실에서", "교실을"], answer:1,
+    explain:"그리다 is an action happening in the classroom, so use 에서."
+  },
+  {
+    tag:"Two particles together",
+    text:"A: 누가 저녁을 만들어요?\nB: 엄마___ 저녁___ 만들어요.",
+    context:"Who makes dinner? — Mom does.",
+    options:["엄마는 / 저녁이", "엄마가 / 저녁을", "엄마를 / 저녁은"], answer:1,
+    explain:"엄마 is the person being identified, so 가. 저녁 is what she makes, so 을: 엄마가 저녁을 만들어요."
+  },
+  {
+    tag:"Paired place pattern",
+    text:"저는 헬스장___ 가요. 헬스장___ 운동해요.",
+    context:"I go to the gym. I exercise at the gym.",
+    options:["에서 / 에", "에 / 에서", "에 / 에"], answer:1,
+    explain:"Destination with 가다 → 에. Action location with 운동하다 → 에서."
+  },
+  {
+    tag:"Contrast",
+    text:"형은 서울에 살아요. 누나___ 인천에 살아요.",
+    context:"My older brother lives in Seoul. My older sister lives in Incheon.",
+    options:["누나는", "누나가", "누나를"], answer:0,
+    explain:"The sentence contrasts where two people live: 형은… 누나는…."
+  },
+  {
+    tag:"Three-part pattern",
+    text:"A: 누가 고양이를 키워요?\nB: 지수___ 고양이___ 키워요.",
+    context:"Who raises a cat? — Jisoo does.",
+    options:["지수는 / 고양이가", "지수가 / 고양이를", "지수를 / 고양이는"], answer:1,
+    explain:"지수 is who we identify → 가. 고양이 is what Jisoo raises → 를."
+  },
+  {
+    tag:"Movement + action",
+    text:"주말에 시장___ 가요. 시장___ 과일을 사요.",
+    context:"On the weekend, I go to the market and buy fruit there.",
+    options:["에 / 에서", "에서 / 에", "에 / 에"], answer:0,
+    explain:"Go to the market → 시장에. Buy fruit at the market → 시장에서."
+  },
+  {
+    tag:"Object chunk",
+    text:"저는 저녁에 뉴스___ 봐요.",
+    context:"I watch the news in the evening.",
+    options:["뉴스가", "뉴스는", "뉴스를"], answer:2,
+    explain:"뉴스 is what you watch, so use 을/를: 뉴스를 봐요."
+  },
+  {
+    tag:"Identify who",
+    text:"A: 누가 먼저 시작했어요?\nB: 민호___ 먼저 시작했어요.",
+    context:"Who started first? — Minho did.",
+    options:["민호는", "민호가", "민호를"], answer:1,
+    explain:"The answer identifies who started first, so 가: 민호가 먼저 시작했어요."
+  },
+  {
+    tag:"Contrast",
+    text:"저는 매운 음식을 좋아해요. 친구___ 단 음식을 좋아해요.",
+    context:"I like spicy food. My friend likes sweet food.",
+    options:["친구는", "친구가", "친구를"], answer:0,
+    explain:"You are comparing preferences: 저는… 친구는…."
+  },
+  {
+    tag:"Action location",
+    text:"A: 회의는 어디에서 해요?\nB: 회의실___ 해요.",
+    context:"Where do you have the meeting? — In the meeting room.",
+    options:["회의실에", "회의실에서", "회의실을"], answer:1,
+    explain:"The meeting happens in that place, so use 에서: 회의실에서 해요."
+  },
+  {
+    tag:"Existence location",
+    text:"A: 휴대폰은 어디에 있어요?\nB: 가방___ 있어요.",
+    context:"Where is the phone? — It’s in the bag.",
+    options:["가방에", "가방에서", "가방을"], answer:0,
+    explain:"The phone exists/is located in the bag, so use 에: 가방에 있어요."
+  },
+  {
+    tag:"Choose the natural sentence",
+    text:"Which sentence best matches this situation?",
+    context:"You are answering: “Who studies French at the café?” — Hana does.",
+    options:["하나는 카페에 프랑스어가 공부해요.", "하나가 카페에서 프랑스어를 공부해요.", "하나를 카페에서 프랑스어는 공부해요."], answer:1,
+    explain:"We identify Hana with 가, the studying happens at the café with 에서, and French is what she studies with 를."
+  },
+  {
+    tag:"Full sentence",
+    text:"A: 누가 제주도에 살아요?\nB: ________",
+    context:"Your aunt lives in Jeju. Choose the most natural answer.",
+    options:["이모는 제주도에서 살아요.", "이모가 제주도에 살아요.", "이모를 제주도에 살아요."], answer:1,
+    explain:"누가? identifies your aunt, so 이모가. 살다 uses 에 for the place someone lives: 제주도에 살아요."
+  },
+  {
+    tag:"Final mixed scene",
+    text:"A: 누가 빵을 샀어요?\nB: 유나___ 빵___ 샀어요.\nA: 어디에서 샀어요?\nB: 빵집___ 샀어요.",
+    context:"Yuna bought the bread at a bakery.",
+    options:["유나는 / 빵이 / 빵집에", "유나가 / 빵을 / 빵집에서", "유나를 / 빵은 / 빵집에"], answer:1,
+    explain:"Identify who → 유나가. What she bought → 빵을. Where the buying happened → 빵집에서."
+  }
+];
+
+let current = 0;
+let answers = Array(questions.length).fill(null);
+let locked = Array(questions.length).fill(false);
+
+const qtag = document.getElementById('qtag');
+const qtext = document.getElementById('qtext');
+const context = document.getElementById('context');
+const optionsEl = document.getElementById('options');
+const feedback = document.getElementById('feedback');
+const nextBtn = document.getElementById('nextBtn');
+const prevBtn = document.getElementById('prevBtn');
+const counter = document.getElementById('counter');
+const progress = document.getElementById('progress');
+const quizCard = document.getElementById('quizCard');
+const result = document.getElementById('result');
+
+function render(){
+  const q = questions[current];
+  counter.textContent = `${current+1} / ${questions.length}`;
+  progress.style.width = `${((current+1)/questions.length)*100}%`;
+  qtag.textContent = q.tag;
+  qtext.textContent = q.text;
+  context.textContent = q.context;
+  optionsEl.innerHTML = '';
+  feedback.className = 'feedback';
+  feedback.innerHTML = '';
+
+  q.options.forEach((opt,i)=>{
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.textContent = opt;
+    if(answers[current] === i) b.classList.add('selected');
+    if(locked[current]){
+      b.disabled = true;
+      if(i === q.answer) b.classList.add('correct');
+      if(answers[current] === i && i !== q.answer) b.classList.add('wrong');
+    }
+    b.onclick = ()=>selectAnswer(i);
+    optionsEl.appendChild(b);
+  });
+
+  if(locked[current]) showFeedback();
+  prevBtn.style.visibility = current === 0 ? 'hidden' : 'visible';
+  nextBtn.disabled = !locked[current];
+  nextBtn.textContent = current === questions.length-1 ? 'See my result →' : 'Next →';
+}
+
+function selectAnswer(i){
+  if(locked[current]) return;
+  answers[current] = i;
+  locked[current] = true;
+  render();
+}
+
+function showFeedback(){
+  const q = questions[current];
+  const correct = answers[current] === q.answer;
+  feedback.className = `feedback show ${correct ? 'good':'bad'}`;
+  feedback.innerHTML = `<strong>${correct ? '✓ Yes — exactly.' : 'Almost — use the context clue.'}</strong><div class="korean">${q.options[q.answer]}</div><div>${q.explain}</div>`;
+}
+
+prevBtn.onclick = ()=>{ if(current>0){current--;render();window.scrollTo({top:170,behavior:'smooth'});} };
+nextBtn.onclick = ()=>{
+  if(current < questions.length-1){
+    current++;render();window.scrollTo({top:170,behavior:'smooth'});
+  } else finish();
+};
+
+function finish(){
+  const score = questions.reduce((s,q,i)=>s + (answers[i]===q.answer ? 1:0),0);
+  const pct = Math.round(score/questions.length*100);
+  let headline, message;
+  if(pct >= 90){
+    headline = 'That’s the shift we wanted.';
+    message = 'You’re not just recognizing the particles — you’re choosing them from context with much less effort. Keep using these patterns in your own Korean so this becomes even more automatic.';
+  } else if(pct >= 80){
+    headline = 'Your particle instinct is getting stronger.';
+    message = 'Most of the patterns are already landing. Review the few questions that slowed you down, then say the corrected sentence out loud once or twice.';
+  } else {
+    headline = 'You’ve built a solid base.';
+    message = 'The next step is more repetition, not more rules. Revisit the questions you missed and focus on what the sentence is trying to communicate.';
+  }
+  quizCard.style.display = 'none';
+  document.querySelector('.topbar').style.display = 'none';
+  result.classList.add('show');
+  result.innerHTML = `
+    <p class="score">${score}/30</p>
+    <h2>${headline}</h2>
+    <p>${message}</p>
+    <p><strong>${pct}% correct</strong></p>
+    <p class="small">The goal is not to recite five particle rules. It’s to see the context, recognize the pattern, and keep speaking.</p>
+    <div class="flow-box">
+      <h3>Keep building on this</h3>
+      <p>If these particle choices felt easier than they did before the workshop, that’s the point.</p>
+      <p>You’re not just memorising more rules — you’re starting to recognise patterns faster and use Korean with less hesitation.</p>
+      <p><strong>Korean FLOW Academy</strong> is where we keep building that same skill across your Korean: sentence building, grammar in context, connectors and tense, increasingly natural connected Korean, and repeated practice that helps what you learn become usable.</p>
+      <p class="flow-tagline"><strong>Korean FLOW Academy</strong><br>Where Korean finally clicks.</p>
+      <a class="flow-link" href="https://www.joaacademy.com/korean-flow-academy" target="_blank" rel="noopener noreferrer">Continue with Korean FLOW Academy →</a>
+    </div>
+    <div class="actions">
+      <button class="nav prev" onclick="reviewMissed()">Review missed questions</button>
+      <button class="nav restart" onclick="restartQuiz()">Take the quiz again</button>
+    </div>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function reviewMissed(){
+  const missed = questions.map((q,i)=>answers[i]===q.answer?null:i).filter(i=>i!==null);
+  if(!missed.length){
+    alert('You got everything correct — there are no missed questions to review!');
+    return;
+  }
+  current = missed[0];
+  result.classList.remove('show');
+  quizCard.style.display = 'block';
+  document.querySelector('.topbar').style.display = 'flex';
+  render();
+}
+
+function restartQuiz(){
+  current = 0;
+  answers = Array(questions.length).fill(null);
+  locked = Array(questions.length).fill(false);
+  result.classList.remove('show');
+  quizCard.style.display = 'block';
+  document.querySelector('.topbar').style.display = 'flex';
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+render();
+</script>
+</body>
+</html>
